@@ -16,7 +16,7 @@ if (file_exists(SYSTEMPATH . 'Config/Routes.php'))
  * --------------------------------------------------------------------
  */
 $routes->setDefaultNamespace('App\Controllers');
-$routes->setDefaultController('Home');
+$routes->setDefaultController('User');
 $routes->setDefaultMethod('index');
 $routes->setTranslateURIDashes(false);
 $routes->set404Override();
@@ -31,22 +31,18 @@ $routes->setAutoRoute(true);
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
 // $routes->get('/', 'Home::index');
-$routes->get('/', 'User::index');
-$routes->get('signin', 'User::index');
-$routes->add('signup', 'User::register');
-$routes->add('viewPeperoni', 'User::showFormPeperoni');
+$routes->add('/', 'User::index');
+$routes->add('signin', 'User::index');
+$routes->add('signup', 'User::showFormAdd');
+$routes->add('register', 'User::register');
 
-// $routes->get('/', 'User::index');
-// $routes->group('login', function($routes)
-// {
-// 	$routes->add('/', 'User::register');
-// 	$routes->add('signup', 'User::register');
-// 	$routes->add('signin', 'User::index');
-// });
-// $routes->group('pizza', function($routes)
-// {
-// 	$routes->add('/', 'Pizza::showFormPeperoni');
-// });
+$routes->group('pizza', function($routes)
+{
+	$routes->add('/', 'Pizza::showFormPeperoni');
+	$routes->add('add', 'Pizza::addPeperoni');
+	$routes->add('remove/(:num)','Pizza::deletePizza/$1');
+});
+
 /**
  * --------------------------------------------------------------------
  * Additional Routing

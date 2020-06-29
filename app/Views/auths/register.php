@@ -5,7 +5,7 @@
     
   </div>
   <div class="auth__body">
-    <form class="auth__form" autocomplete="off" action="/viewPeperoni" method="post">
+    <form class="auth__form" autocomplete="off" action="/signin" method="post">
       <div class="auth__form_body">
         <h3 class="auth__form_title">
         <img src="images/logo.svg" alt="" width="50">
@@ -14,15 +14,15 @@
         <div>
           <div class="form-group">
             <label class="text-uppercase small">Email</label>
-            <input type="email" class="form-control" placeholder="Enter email">
+            <input type="email" name="email" class="form-control" placeholder="Enter email">
           </div>
           <div class="form-group">
             <label class="text-uppercase small">Password</label>
-            <input type="password" class="form-control" placeholder="Password">
+            <input type="password" name="password" class="form-control" placeholder="Password">
           </div> 
           <div class="form-group">
             <label class="text-uppercase small">Address</label>
-            <textarea name=""  class="form-control" placeholder="Address"></textarea>
+            <textarea name="address"  class="form-control" placeholder="Address"></textarea>
           </div>
           <div class="form-check">
             <label class="form-check-label">
@@ -31,13 +31,7 @@
         </div>
         </div>
       </div>
-      <?php if(isset($validation)):?>
-      <div class="col-12">
-        <div class="alert alert-danger" role="alert">
-          <?=$validation->listErrors()?>
-        </div>
-      </div>
-      <?php endif?>
+      
       <div class="auth__form_actions">
         <button class="btn btn-primary btn-lg btn-block">
           NEXT
@@ -48,6 +42,13 @@
           </a>
         </div>
       </div>
+      <?php if(isset($validation)):?>
+      <div class="col-12">
+        <div class="alert alert-danger" role="alert">
+          <?=$validation->listErrors()?>
+        </div>
+      </div>
+      <?php endif?>
     </form>
   </div>
 </div>
