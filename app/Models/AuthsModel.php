@@ -7,6 +7,6 @@ class AuthsModel extends Model
     protected $table      = 'users';
     protected $primaryKey = 'id';
     protected $returnType     = 'array';
-    protected $allowedFields = ['email','password','address'];
+    protected $allowedFields = ['email','password','address','role'];
 
 }

@@ -6,9 +6,11 @@
 			<div class="col-2"></div>
 			<div class="col-8">
 				<div class="text-right">
-					<a href="" class="btn btn-warning btn-sm text-white font-weight-bolder" data-toggle="modal" data-target="#createPizza">
-						<i class="material-icons float-left" data-toggle="tooltip" title="Add Pizza!" data-placement="left">add</i>&nbsp;Add
-					</a>
+					<?php if(session()->get('role') ==1):?>
+						<a href="" class="btn btn-warning btn-sm text-white font-weight-bolder" data-toggle="modal" data-target="#createPizza">
+							<i class="material-icons float-left" data-toggle="tooltip" title="Add Pizza!" data-placement="left">add</i>&nbsp;Add
+						</a>
+					<?php endif?>
 				</div>
 				<hr>
 				<table class="table table-borderless table-hover">
@@ -16,17 +18,21 @@
 						<th>Name</th>
 						<th>Ingredients</th>
 						<th>Price</th>
-						<th>Status</th>
+						<?php if(session()->get('role') ==1):?>
+							<th>Status</th>
+							<?php endif?>
 					</tr>
 					<?php foreach($peperoniList as $allPizza):?>
 						<tr>
 							<td><?= $allPizza['name']?></td>
 							<td><?= $allPizza['ingredient']?></td>
 							<td><?= $allPizza['price']." $"?></td>
+							<?php if(session()->get('role') ==1):?>
 							<td>
-								<a href="" data-toggle="modal" data-target="#updatePizza"><i class="material-icons text-info" data-toggle="tooltip" title="Edit Pizza!" data-placement="left">edit</i></a>
+								<a href="/pizza/edit/<?=$allPizza['id'] ?>"" data-toggle="modal" data-target="#updatePizza"><i class="material-icons text-info" data-toggle="tooltip" title="Edit Pizza!" data-placement="left">edit</i></a>
 								<a href="/pizza/remove/<?=$allPizza['id'] ?>" data-toggle="tooltip" title="Delete Pizza!" data-placement="right"><i class="material-icons text-danger">delete</i></a>
 							</td>
+							<?php endif?>
 						</tr>
 					<?php endforeach?>
 				</table>
@@ -84,15 +90,15 @@
         
         <!-- Modal body -->
         <div class="modal-body text-right">
-			<form  action="/" method="post">
+			<form  action="pizza/update" method="post">
 				<div class="form-group">
-					<input type="text" class="form-control" value="Rady Pizza" name="name">
+					<input type="text" class="form-control" value="<?= $allPizza['name']?>" name="name">
 				</div>
 				<div class="form-group">
-					<input type="number" class="form-control" value="100" name="price">
+					<input type="number" class="form-control" value="<?= $allPizza['price']?>" name="price">
 				</div>
 				<div class="form-group">
-					<textarea name="ingredient"  class="form-control">Cheese, Tomatoes, Chicken, Salad</textarea>
+					<textarea name="ingredient"  class="form-control"><?= $allPizza['ingredient']?></textarea>
 				</div>
 			<a data-dismiss="modal" class="closeModal">DISCARD</a>
 		 	 &nbsp;

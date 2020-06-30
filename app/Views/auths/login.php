@@ -27,7 +27,7 @@
           NEXT
         </button>
         <div class="mt-2">
-          <a href="/signup" class="small text-uppercase">
+          <a href="/register" class="small text-uppercase">
             CREATE ACCOUNT
           </a>
         </div>

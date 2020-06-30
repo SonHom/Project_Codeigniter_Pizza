@@ -11,37 +11,44 @@ class User extends BaseController
 	{
 		return view('auths/register');
 	}
+	public function setUserSession($user){
+		$Data = [
+			'id'=>$user['id'],
+			'email'=>$user['email'],
+			'password'=>$user['password'],
+		  	'address'=>$user['address'],
+		  	'role'=>$user['role']
+		];
+		session()->set($data);
+		return true;
+	}
 	public function register(){
-		// helper(['form']);
-		// $data = [];
-		// if($this->request->getMethod() =="post"){
-		// 	$rules = [
-		// 		'email' =>'required',
-		// 		'password'=>'required',
-		// 		'address'=>'required'
-		// 	];
-		// 	if($this->validate($rules)){
-		// 		$auth = new AuthsModel();
-		// 		$email = $this->request->getVar('email');
-		// 		$password = $this->request->getVar('password');
-		// 		$address = $this->request->getVar('address');
-		// 		$userData = array(
-		// 	  		'email'=>$email,
-		// 	  		'password'=>$password,
-		// 	  		'address'=>$address
-		// 		);
-		// 		$auth->register($userData);
-		// 		return redirect()->to("/viewPeperoni");
-		// 		// echo "success";
+		helper(['form']);
+		$data = [];
+		if($this->request->getMethod() =="post"){
+			$rules = [
+				'email' =>'required|valid_emaiil',
+				'password'=>'required',
+				'address'=>'required'
+			];
+			$athu = new AuthsModel();
+			$newData = [
+				'email' => $this->request->getVar('email'),
+				'password' => $this->request->getVar('password'),
+				'address' => $this->request->getVar('address'),
+				'role' => $this->request->getVar('role'),
+			];
 
-		// 	}else{
-		// 		$data['validation'] = $this->validator;
-		// 		return view('auths/register',$data);
-		// 	}
-		// }
-		$user = new AuthsModel();
-		$user = insert($_POST);
-		return redirect()->to("/");
+			$athu->save($newData);
+			return redirect()->to('/');
+		}
+		return view('auths/register');
+		
+	}
+
+	public function logout(){
+		session()->destroy();
+		return redirect()->to('/');
 	}
 	
 	

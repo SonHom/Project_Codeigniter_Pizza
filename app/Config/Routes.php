@@ -33,7 +33,8 @@ $routes->setAutoRoute(true);
 // $routes->get('/', 'Home::index');
 $routes->add('/', 'User::index');
 $routes->add('signin', 'User::index');
-$routes->add('signup', 'User::showFormAdd');
+$routes->add('logout', 'User::logout');
+$routes->get('adduser', 'User::showFormAdd');
 $routes->add('register', 'User::register');
 
 $routes->group('pizza', function($routes)
@@ -41,6 +42,8 @@ $routes->group('pizza', function($routes)
 	$routes->add('/', 'Pizza::showFormPeperoni');
 	$routes->add('add', 'Pizza::addPeperoni');
 	$routes->add('remove/(:num)','Pizza::deletePizza/$1');
+	$routes->add('edit/(:num)','Pizza::showFormEdit/$1');
+	$routes->add('update','Pizza::updatePizza');
 });
 
 /**

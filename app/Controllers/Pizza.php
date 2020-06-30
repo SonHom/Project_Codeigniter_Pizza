@@ -5,7 +5,6 @@ class Pizza extends BaseController
 	public function showFormPeperoni()
 	{
 		$users = new Peperoni();
-		// $users-> insert($data);
 		$listPeperoni['peperoniList'] = $users->findAll();
 		return view('index',$listPeperoni);
 	}
@@ -39,9 +38,36 @@ class Pizza extends BaseController
 		$pizza->delete($id);
 		return redirect()->to('/pizza');
 	}
-	// public function updatePizza(){
+	public function showFormEdit($id)
+	{
+		$pizza = new Peperoni();
+		$data['editPizza'] = $pizza-> find($id);
+		return view('index',$data);
+	}
+	public function updatePizza(){
+		// $data = [];
+		if($this->request->getMethod() == "post"){
+			// helper(['form']);
+			// $rules = [
+			// 	'name'=>'required',
+			// 	'price'=>'required|min_length[1]|max_length[50]',
+			// 	'ingredient'=>'required',
+				
+			// ];
+				$pizzaModel = new Peperoni();
+				$name = $this->request->getVar('name');
+				$ingredient = $this->request->getVar('ingredient');
+				$price = $this->request->getVar('price');
+				$pizzaData = array(
+					'name'=>$name,
+					'ingredient'=>$ingredient,
+					'price'=>$price
+				);
+				$pizzaModel->update($id,$pizzaData);
+		}
+		return redirect()->to('/pizza');
 
-	// }
+	}
 
 
 	//--------------------------------------------------------------------
