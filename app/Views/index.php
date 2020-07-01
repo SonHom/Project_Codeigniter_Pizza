@@ -6,7 +6,7 @@
 			<div class="col-2"></div>
 			<div class="col-8">
 				<div class="text-right">
-					<?php if(session()->get('role') ==1):?>
+					<?php if(session()->get('role') == "manager"):?>
 						<a href="" class="btn btn-warning btn-sm text-white font-weight-bolder" data-toggle="modal" data-target="#createPizza">
 							<i class="material-icons float-left" data-toggle="tooltip" title="Add Pizza!" data-placement="left">add</i>&nbsp;Add
 						</a>
@@ -18,7 +18,7 @@
 						<th>Name</th>
 						<th>Ingredients</th>
 						<th>Price</th>
-						<?php if(session()->get('role') ==1):?>
+						<?php if(session()->get('role') == "manager"):?>
 							<th>Status</th>
 							<?php endif?>
 					</tr>
@@ -27,9 +27,9 @@
 							<td><?= $allPizza['name']?></td>
 							<td><?= $allPizza['ingredient']?></td>
 							<td><?= $allPizza['price']." $"?></td>
-							<?php if(session()->get('role') ==1):?>
+							<?php if(session()->get('role') =="manager"):?>
 							<td>
-								<a href="/pizza/edit/<?=$allPizza['id'] ?>"" data-toggle="modal" data-target="#updatePizza"><i class="material-icons text-info" data-toggle="tooltip" title="Edit Pizza!" data-placement="left">edit</i></a>
+								<a href="/pizza/edit/<?=$allPizza['id'] ?>" data-toggle="modal" data-target="#updatePizza"><i class="material-icons text-info" data-toggle="tooltip" title="Edit Pizza!" data-placement="left">edit</i></a>
 								<a href="/pizza/remove/<?=$allPizza['id'] ?>" data-toggle="tooltip" title="Delete Pizza!" data-placement="right"><i class="material-icons text-danger">delete</i></a>
 							</td>
 							<?php endif?>
