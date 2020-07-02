@@ -31,8 +31,8 @@ class User extends BaseController
 				]
 			];
 			if($this->validate($rules,$error)){
-				$model = new AuthsModel();
-				$user = $model->where('email',$this->request->getVar('email'))
+				$athu = new AuthsModel();
+				$user = $athu->where('email',$this->request->getVar('email'))
 							  ->first();
 				$this->setUserSession($user);
 				return redirect()->to('/pizza');

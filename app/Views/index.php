@@ -15,6 +15,7 @@
 				<hr>
 				<table class="table table-borderless table-hover">
 					<tr>
+						<th class="hide">id</th>
 						<th>Name</th>
 						<th>Ingredients</th>
 						<th>Price</th>
@@ -24,12 +25,13 @@
 					</tr>
 					<?php foreach($peperoniList as $allPizza):?>
 						<tr>
-							<td><?= $allPizza['name']?></td>
+							<td class="hide"><?= $allPizza['id']?></td>
+							<td class="pizzaName"><?= $allPizza['name']?></td>
 							<td><?= $allPizza['ingredient']?></td>
 							<td><?= $allPizza['price']." $"?></td>
 							<?php if(session()->get('role') =="manager"):?>
 							<td>
-								<a href="/pizza/edit/<?=$allPizza['id'] ?>" data-toggle="modal" data-target="#updatePizza"><i class="material-icons text-info" data-toggle="tooltip" title="Edit Pizza!" data-placement="left">edit</i></a>
+								<a href="/pizza/edit/<?=$allPizza['id'] ?>" data-toggle="modal" data-target="#updatePizza"><i class="material-icons text-info updateData" data-toggle="tooltip" title="Edit Pizza!" data-placement="left">edit</i></a>
 								<a href="/pizza/remove/<?=$allPizza['id'] ?>" data-toggle="tooltip" title="Delete Pizza!" data-placement="right"><i class="material-icons text-danger">delete</i></a>
 							</td>
 							<?php endif?>
@@ -92,13 +94,16 @@
         <div class="modal-body text-right">
 			<form  action="pizza/update" method="post">
 				<div class="form-group">
-					<input type="text" class="form-control" value="<?= $allPizza['name']?>" name="name">
+					<input type="hidden" class="form-control" id="id"  name="id">
 				</div>
 				<div class="form-group">
-					<input type="number" class="form-control" value="<?= $allPizza['price']?>" name="price">
+					<input type="text" class="form-control" id="name" name="name">
 				</div>
 				<div class="form-group">
-					<textarea name="ingredient"  class="form-control"><?= $allPizza['ingredient']?></textarea>
+					<input type="text" class="form-control" id="price" name="price">
+				</div>
+				<div class="form-group">
+					<textarea name="ingredient"  class="form-control" id="ingredient"></textarea>
 				</div>
 			<a data-dismiss="modal" class="closeModal">DISCARD</a>
 		 	 &nbsp;
@@ -109,4 +114,22 @@
     </div>
   </div>
   <!-- =================================END MODEL UPDATE==================================================== -->
+
+  <script>
+	$(document).ready(function(){ 
+		$('.updateData').on('click',function(){
+			$('#updatePizza'); 
+			$tr = $(this).closest('tr'); 
+			var data = $tr.children('td').map(function(){ 
+				return $(this).text(); 
+			}).get(); 
+				  // console.log(data); 
+			$('#id').val(data[0]); 
+			$('#name').val(data[1]); 
+			$('#ingredient').val(data[2]); 
+			$('#price').val(data[3]); 
+		});
+	}); 
+</script>
 <?= $this->endSection() ?>
+

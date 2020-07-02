@@ -34,7 +34,7 @@ $routes->setAutoRoute(true);
 $routes->add('/', 'User::index');
 $routes->add('signin', 'User::index');
 $routes->add('logout', 'User::logout');
-$routes->get('adduser', 'User::showFormAdd');
+$routes->add('adduser', 'User::showFormAdd');
 $routes->add('register', 'User::register');
 
 $routes->group('pizza', function($routes)

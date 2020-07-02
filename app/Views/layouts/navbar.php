@@ -21,7 +21,7 @@
   <div class="collapse navbar-collapse" id="collapsibleNavbar">
     <ul class="nav navbar-nav ml-auto">
       <li class="nav-item">
-        <a class="nav-link text-uppercase" href="/signin"><?=session()->get('email')?>|</a>
+        <a class="nav-link text-uppercase" href="/signin"><?php $username = strstr(session()->get('email'),'@',true) ?> <?= $username ?>|</a>
         <a class="nav-link text-uppercase" href="/signin">Logout</a>
       </li>
     </ul>
