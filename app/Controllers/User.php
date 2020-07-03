@@ -17,23 +17,24 @@ class User extends BaseController
 	}
 	public function index()
 	{
-		// set login
+		// set validate login form
 		helper(['form']);
 		$data = [];
 		if($this->request->getMethod() == "post"){
+			// rule of user
 			$rules = [
 				'email' => 'required|valid_email',
-				'password' => 'required'
+				'password' => 'required|UserValidation[email,password]'
 			];
+			//messages when user put the email and password incorrect
 			$error = [
 				'password' => [
-					'UserValidation' => 'password not match!'
+					'UserValidation' => 'password and email incorrect please try again'
 				]
 			];
 			if($this->validate($rules,$error)){
 				$athu = new AuthsModel();
-				$user = $athu->where('email',$this->request->getVar('email'))
-							  ->first();
+				$user = $athu->where('email',$this->request->getVar('email')) ->first();
 				$this->setUserSession($user);
 				return redirect()->to('/pizza');
 			}else{
@@ -44,12 +45,12 @@ class User extends BaseController
 		return view('auths/login',$data);
 	
 	}
-	
+	//show form register user
 	public function showFormAdd()
 	{
 		return view('auths/register');
 	}
-
+	//register user 
 	public function register(){
 		helper(['form']);
 		$data = [];
@@ -59,7 +60,9 @@ class User extends BaseController
 				'password'=>'required',
 				'address'=>'required'
 			];
+
 			if($this->validate($rules)){
+				//add user to database
 				$athu = new AuthsModel();
                 $email = $this->request->getVar('email');
                 $password = $this->request->getVar('password');
@@ -77,6 +80,7 @@ class User extends BaseController
 				$athu->save($newData);
 				return redirect()->to('/');
 			}else{
+				//validate messages
 				$data['validation'] = $this->validator;
             }
         }
@@ -84,7 +88,7 @@ class User extends BaseController
 		return view('auths/register',$data);
 		
 	}
-
+	// when we click on logout in navbar it go to login form
 	public function logout(){
 		session()->destroy();
 		return redirect()->to('/');

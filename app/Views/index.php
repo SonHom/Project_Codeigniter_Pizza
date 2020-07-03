@@ -123,7 +123,7 @@
 			var data = $tr.children('td').map(function(){ 
 				return $(this).text(); 
 			}).get(); 
-				  // console.log(data); 
+				
 			$('#id').val(data[0]); 
 			$('#name').val(data[1]); 
 			$('#ingredient').val(data[2]); 

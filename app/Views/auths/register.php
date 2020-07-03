@@ -42,6 +42,7 @@
           </a>
         </div>
       </div>
+       <!-- disaplay messages error -->
       <?php if(isset($validation)):?>
       <div class="col-12">
         <div class="alert alert-danger" role="alert">

@@ -2,19 +2,21 @@
 use App\Models\Peperoni;
 class Pizza extends BaseController
 {
+	// show list of pizza
 	public function showFormPeperoni()
 	{
 		$pizzaModel = new Peperoni();
 		$listPeperoni['peperoniList'] = $pizzaModel->findAll();
 		return view('index',$listPeperoni);
 	}
+	// create pizza
 	public function addPeperoni(){
 		$data = [];
 		if($this->request->getMethod() == "post"){
 			helper(['form']);
 			$rules = [
 				'name'=>'required',
-				'price'=>'required|min_length[1]|max_length[50]',
+				'price'=>'required|min_length[1]|max_length[11]',
 				'ingredient'=>'required',
 				
 			];
@@ -32,18 +34,21 @@ class Pizza extends BaseController
 		return redirect()->to('/pizza');
 
 	}
+	//delete pizza
 	public function deletePizza($id)
 	{
 		$pizzaModel = new Peperoni();
 		$pizzaModel->delete($id);
 		return redirect()->to('/pizza');
 	}
+	// get value from database
 	public function showFormEdit($id)
 	{
 		$pizzaModel = new Peperoni();
 		$data['editPizza'] = $pizzaModel-> find($id);
 		return view('index',$data);
 	}
+	// update pizza
 	public function updatePizza(){
 		$Pizzamodel = new Peperoni();
 		$Pizzamodel->update($_POST['id'],$_POST);
