@@ -78,7 +78,7 @@ class User extends BaseController
 				];
 
 				$athu->save($newData);
-				return redirect()->to('/');
+				return redirect()->to('/pizza');
 			}else{
 				//validate messages
 				$data['validation'] = $this->validator;

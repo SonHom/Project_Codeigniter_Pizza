@@ -16,7 +16,7 @@ class Pizza extends BaseController
 			helper(['form']);
 			$rules = [
 				'name'=>'required',
-				'price'=>'required|min_length[1]|max_length[11]',
+				'price'=>'required',
 				'ingredient'=>'required',
 				
 			];
@@ -32,7 +32,6 @@ class Pizza extends BaseController
 				$pizzaModel->insert($pizzaData);
 		}
 		return redirect()->to('/pizza');
-
 	}
 	//delete pizza
 	public function deletePizza($id)
@@ -53,10 +52,6 @@ class Pizza extends BaseController
 		$Pizzamodel = new Peperoni();
 		$Pizzamodel->update($_POST['id'],$_POST);
 		return redirect()->to('/pizza');
-
 	}
-
-
 	//--------------------------------------------------------------------
-
 }
